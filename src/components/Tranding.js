@@ -1,31 +1,24 @@
 import styled from "styled-components"
 import { Link } from "react-router-dom"
+import { useSelector } from "react-redux"
+import {selectTrinding} from '../feature/movie/movieSlice'
 
 const Tranding=(props)=>{
+   const movies =useSelector(selectTrinding)
    return (
       <Container>
          <h4>Tranding In Disney Plus </h4>
          <Content>
-            <Wrap>
-               <Link to='/'>
-                  <img src="/images/viewers-starwars.png"/>
-               </Link>
-            </Wrap>
-            <Wrap>
-               <Link to='/'>
-                  <img src="/images/viewers-starwars.png"/>
-               </Link>
-            </Wrap>
-            <Wrap>
-               <Link to='/'>
-                  <img src="/images/viewers-starwars.png"/>
-               </Link>
-            </Wrap>
-            <Wrap>
-               <Link to='/'>
-                  <img src="/images/viewers-starwars.png"/>
-               </Link>
-            </Wrap>
+         {
+               movies && movies.map((movie,key)=> (
+                  <Wrap key={key}>
+                     {movie.id}
+                     <Link to={"/detail/"+movie.id}>
+                        <img src={movie.cardImg} alt={movie.title}/>
+                     </Link>
+                  </Wrap>
+               ))
+            }
          </Content>
       </Container>
    )
