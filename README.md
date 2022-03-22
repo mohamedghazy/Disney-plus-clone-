@@ -8,7 +8,7 @@
 - [React-Slick ](https://react-slick.neostack.com/) To add Carousels in my app. This library is the port of jQuery slick library. 
 
 ## I am sitll working in this project , the up coming tasks are:
- - [] Testing the app compnonts with testing libarary like  [Jest.js ](https://jestjs.io/)
  - [] Testing the app Accessbility
+ - [] Create add to wishlist feature and wishlist component 
  - [] Deploying the app in firebase
   
