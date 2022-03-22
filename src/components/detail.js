@@ -1,13 +1,17 @@
 import styled from 'styled-components'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import db from '../firebase'
-const Detail =(props)=>{
+const Detail =()=>{
    const {id}=useParams();
    const [detailData,setDetailData]=useState({})
-
+   const userId= useSelector(state=>state.user.userId)
+   // console.log('userId from details ',userId)
    useEffect(()=>{
       db.collection('movies').doc(id).get().then(doc=>{
+         // console.log('the doc',doc.data())
+         // console.log('the movie id',id)
          if (doc.exists){
             setDetailData(doc.data())
          }else{
@@ -18,6 +22,23 @@ const Detail =(props)=>{
       })
       
    },[id])
+
+   // create a doc with the movie id and put the movie dertails on the doc fields
+   const hanledWishlist=()=>{
+      const movie=detailData.title
+      db.collection('wishlists').doc(userId).set({
+         [movie]:{
+            name:detailData.title,
+            moveId:id,
+            image:detailData.backgroundImg
+         }
+      },{merge:true}).then(()=>{
+         alert('Done Injoy')
+         console.log('the collection created')
+      }).catch((err)=>{
+         console.log('there is error',err)
+      })
+   }
 
    return (
       <Container>
@@ -37,10 +58,10 @@ const Detail =(props)=>{
                   <img src='/images/play-icon-white.png' alt='playing the trailer' />
                   <span>Trailer</span>
                </Trailer>
-               <AddList>
+               <AddList onClick={hanledWishlist}>
                   <span></span>
                   <span></span>
-               </AddList>
+               </AddList> 
                <Gruop>
                   <div>
                      <img src='/images/group-icon.png' alt=''/>
@@ -158,7 +179,7 @@ const AddList=styled.div`
    justify-content: center;
    align-items:center;
    background-color: rgba(0,0,0,0.6);
-   border-raduis: 50%;
+   border-radius: 50%;
    border: 2px solid white;
    cursor:pointer;
     
@@ -186,7 +207,7 @@ const Gruop=styled.div`
    justify-contnet:center;
    align-items:center;
    cursor:pointer;
-   background :white;
+   
 
    div{
       height: 40px;

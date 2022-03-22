@@ -13,6 +13,7 @@ const userSlice =createSlice({
          state.name=action.payload.name
          state.email=action.payload.email
          state.photo=action.payload.photo
+         state.userId=action.payload.userId
       },
       setSignOut:state=>{
          state.name=null

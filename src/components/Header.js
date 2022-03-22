@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import {useDispatch,useSelector} from 'react-redux'
-import {useHistory} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import { auth, providor } from "../firebase";
 import {selectUserEmail,selectUserName, selectUserphoto,setUserLoginDetails,setSignOut} from '../feature/user/userSlice'
 import { useEffect } from "react";
@@ -12,11 +12,13 @@ const Header =(props)=>{
    const userEmail= useSelector(selectUserEmail)
    useEffect(()=>{
       auth.onAuthStateChanged(async (user)=>{
+         // console.log(user)
          if(user) {
             setUser(user);
             history.push('/home')
          }
       })
+
    },[userName])
    // create a function to make authantcation with google 
    const handleAuth =()=>{ 
@@ -24,6 +26,7 @@ const Header =(props)=>{
             auth.signInWithPopup(providor)
          .then(resulte=>{
             setUser(resulte.user)
+            console.log('hjk',resulte.user.uid);
          })
          .catch(
             error=> alert(error.message)
@@ -39,34 +42,33 @@ const Header =(props)=>{
       dispatsh(setUserLoginDetails({
          name:user.displayName,
          email:user.email,
-         photo:user.photoURL
+         photo:user.photoURL,
+         userId:user.uid
       }))
    }
 
 
    return (<Nav>
       <Logo>
+         <Link to="/home">
          <img src='/images/logo.svg' alt='Disney logo'/>
+         </Link>
       </Logo>
       {!userName ?<Login onClick={handleAuth}>LogIn</Login> :
       <>
          <NavMenu>
-            <a href='/home'>
+            <Link to='/home'>
             <img src='/images/home-icon.svg' alt='home'/>
                <span>Home</span>
-            </a>
+            </Link>
             <a>
             <img src='/images/search-icon.svg' alt='home'/>
                <span>Search</span>
             </a>
-            <a>
-            <img src='/images/watchlist-icon.svg' alt='home'/>
+            <Link to="/wishlist">
+               <img src='/images/watchlist-icon.svg' alt='home'/>
                <span>WatchList</span>
-            </a>
-            <a>
-            <img src='/images/original-icon.svg' alt='home'/>
-               <span>Originals</span>
-            </a>
+            </Link>
             <a>
             <img src='/images/movie-icon.svg' alt='home'/>
                <span>Movies</span>
