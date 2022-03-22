@@ -5,7 +5,7 @@ import firebase from 'firebase';
 import { useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faTrash} from '@fortawesome/free-solid-svg-icons'
+import {faTrash, faFolderOpen} from '@fortawesome/free-solid-svg-icons'
 
 const Wishlist=()=>{
    const userId= useSelector(state=>state.user.userId)
@@ -25,7 +25,9 @@ const Wishlist=()=>{
    }
    return (
       <Container>
-         <h2>Your Wishlist</h2>
+         {movieData.length !==0 ?
+         <>
+          <h2>Your Wishlist</h2>
          <Content>
             {movieData.map(movie=>(
                <Movie key={movie.moveId}>
@@ -40,15 +42,21 @@ const Wishlist=()=>{
                </Movie>
             ))}
          </Content>
+         </> :
+               <EmptyWishlist>
+                  <h2>Your Wishlist is empty</h2>
+                  <span>
+                  <FontAwesomeIcon icon={faFolderOpen}></FontAwesomeIcon>
+                  </span>
+               </EmptyWishlist>
+         }
+         
       </Container>
    )
 }
 
 const Container=styled.div`
    padding:100px 26px 26px ;
-   h2{
-      text-align:left;
-   }
 `
 const Content=styled.div`
    margin-top:30px;
@@ -105,6 +113,15 @@ const Cancele =styled.div`
       position: absolute;
       right: 10px;
       top:10px;
+   }
+`
+const EmptyWishlist= styled.div `
+   text-align:center;
+   color: gray;
+   transform: translate(10px, 170%);
+   span{
+      font-size: 50px;
+      color: #5c5b5b;
    }
 `
 export default Wishlist

@@ -1,6 +1,7 @@
 import styled from "styled-components";
-// import src from '../../public/images/cta-logo-one.svg'
-const Login=(props)=>{
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faLinkedinIn,faFacebook,faInstagram,faGithub} from '@fortawesome/free-brands-svg-icons'
+const Login=()=>{
    return (
       <Container>
          <Content>
@@ -11,9 +12,23 @@ const Login=(props)=>{
                   Get It All There
                </SignUp>
                <Description>
-                  Get Premier Access to Raya and the Last Dragon for an additional fee with a Disney+ subucription .As of 03/26/2021,the price of Disney+ and the Disney Bundle Will increase by 1$
+                  Get Access to the full Application to be able to see the app features By login with your google email , And you can follow me 
+                  on social media from links below Thanks . 
                </Description>
-               <CTALogonTwo src='/images/cta-logo-two.png' alt='this is the atc logo'/>
+               <SocialMedia>
+                  <a href="https://www.linkedin.com/in/mohamed-ahmedghazy/" target='_blank'>
+                     <FontAwesomeIcon icon={faLinkedinIn}/>
+                  </a>
+                  <a href="https://www.facebook.com/profile.php?id=100005751916164" target='_blank'>
+                     <FontAwesomeIcon icon={faFacebook}/>
+                  </a>
+                  <a href="https://www.instagram.com/developer.ghazy/" target='_blank'>
+                  <FontAwesomeIcon icon={faInstagram}/>
+                  </a>
+                  <a href="https://github.com/mohamedghazy" target='_blank'>
+                  <FontAwesomeIcon icon={faGithub}/>
+                  </a>
+               </SocialMedia>
             </CTA>
          </Content>
       </Container>
@@ -97,11 +112,19 @@ const Description=styled.p`
    line-height:1.5;
    letter-spacing:1.5px;
 `
-const CTALogonTwo=styled.img`
+const SocialMedia=styled.div`
+   display:flex;
    max-width:100%;
-   margin-bottom:20px;
-   display:inline-block;
    vertical-align:bottom;
    width:100%;
+   justify-content: center;
+   font-size: 30px;
+
+   a{
+      color: white;
+      margin-right: 25px;
+
+   }
 `
+
 export default Login
